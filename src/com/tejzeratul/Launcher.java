@@ -6,7 +6,7 @@ import java.util.Scanner;
 /*
  * Launcher.java
  *
- * The class contain main method which calls other methods
+ * The class contain main method which calls other methods as needed
  *
  * @author Tejas Padliya
  *
@@ -14,20 +14,44 @@ import java.util.Scanner;
 
 public class Launcher {
 
+    /**
+     * main()
+     *
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
 
-        String inputTitle="";
-        Fetch objFetch;
-        String resultParagraph;
-        Scanner objScanner=null;
+        /**
+         * title name to be used in scraping operation
+         */
+        String inputTitle = "";
 
-	    if(args.length>0) {
-            inputTitle=args[0];
+        /**
+         * Fetch object to perform web scrap operations
+         */
+        Fetch objFetch;
+
+        /**
+         * String to hold result text
+         */
+        String resultParagraph;
+
+        /**
+         * Scanner object to read input from prompt
+         */
+        Scanner objScanner;
+
+        // Check for command line arguments
+        if (args.length > 0) {
+            inputTitle = args[0];
 
         } else {
-            while(inputTitle.trim().isEmpty()) {
+
+            // Read user input from prompt
+            objScanner = new Scanner(System.in);
+            while (inputTitle.trim().isEmpty()) {
                 System.out.println("Enter title to get first paragraph from Wikipedia");
-               objScanner = new Scanner(System.in);
+
                 inputTitle = objScanner.nextLine();
             }
 
@@ -37,12 +61,11 @@ public class Launcher {
             } catch (IOException | NullPointerException e) {
                 e.printStackTrace();
             }
-
         }
 
-        objFetch=new Fetch();
-        resultParagraph=objFetch.getFirstWikiPara(inputTitle);
+        objFetch = new Fetch();
+        resultParagraph = objFetch.getFirstWikiPara(inputTitle);
 
         System.out.println(resultParagraph);
-   }
+    }
 }
